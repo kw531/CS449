@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center_horizontal"
+    android:paddingTop="20dp"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="190dp"
+        android:layout_height="40dp">
+
+        <TextView android:id="@+id/ball_count_label"
+            android:text="@string/ball_count_label"
+            android:layout_width="158dp"
+            android:textSize="24sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView android:id="@+id/ball_count_value"
+            android:layout_height="wrap_content"
+            android:text="@string/ball_count_value"
+            android:layout_width="27dp"
+            android:textSize="24sp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="228dp"
+        android:layout_height="41dp">
+
+        <TextView android:id="@+id/strike_count_label"
+            android:layout_height="wrap_content"
+            android:text="@string/strike_count_label"
+            android:layout_width="150dp"
+            android:textSize="24sp"
+            android:layout_weight="1" />
+
+        <TextView android:id="@+id/strike_count_value"
+            android:layout_height="wrap_content"
+            android:text="@string/strike_count_value"
+            android:layout_width="25dp"
+            android:textSize="24sp"
+            android:layout_weight="0.74" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="31dp"
+        android:layout_weight="0.03"></LinearLayout>
+
+    <Button android:id="@+id/ball_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ball_button_label"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:textSize="48sp">
+    </Button>
+
+    <Button android:id="@+id/strike_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/strike_button_label"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:textSize="48sp">
+    </Button>
+
+</LinearLayout>
