@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Umpire Buddy</string>
+
+    <string name="ball_label">Ball Count:</string>
+    <string name="strike_label">Strike Count:</string>
+    <string name="ballCount">0</string>
+    <string name="strikeCount">0</string>
+    <string name="btnStrike">Strike</string>
+    <string name="btnBall">Ball</string>
+    <string name="outCount">0</string>
+    <string name="out_label">Lifetime Outs: </string>
+
+    <string name="menu_About">About</string>
+    <string name="menu_Reset">Reset</string>
+
+    <string name="aboutAct_name">Built by Kati Williams</string>
+    <string name="aboutAct_class">CS 449 - Software Engineering</string>
+    <string name="aboutAct_school">University of Missouri - Kansas City</string>
+    <string name="aboutAct_date">Built on 02/03/2017</string>
+</resources>
