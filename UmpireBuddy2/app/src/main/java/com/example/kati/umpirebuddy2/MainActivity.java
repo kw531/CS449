@@ -20,18 +20,19 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static android.R.attr.textSize;
+
 public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     private int strike_count = 0;
     private int ball_count = 0;
-    private int out_count=0;
-
+    private int out_count = 0;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
-        inflater.inflate(R.menu.reset,menu);
+        inflater.inflate(R.menu.reset, menu);
         return true;
     }
 
@@ -50,8 +51,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         View ballIncrementButton = findViewById(R.id.btnBall);
         ballIncrementButton.setOnClickListener(this);
 
-        updateStrikeCount();
-        updateBallCount();
+        resetBalls(); // Strikes/Balls aren't saved, when created just reset both
     }
 
     private void updateStrikeCount() {
@@ -73,27 +73,22 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnStrike:
-                // batter is out if strike_count ==3
                 strike_count++;
                 updateStrikeCount();
                 if (strike_count == 3) {
                     // Builder is an inner class so we have to qualify it
                     // with its outer class: AlertDialog
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    //builder.setTitle("Dialog box");
+                    builder.setTitle("Too many strikes");
                     builder.setMessage("BATTER OUT!!!");
-                    addOuts();
-                    builder.setCancelable(false);
+                    addOuts(); //Update out total outs.
+
+                    builder.setCancelable(false); //Cancel button
                     builder.setPositiveButton("Bummer.", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            strike_count = 0;
-                            ball_count = 0;
-                            // Note, you have to call update count here because.
-                            //   the call builder.show() below is non blocking.
-                            updateStrikeCount();
-                            updateBallCount();
+                            //The OK Button
+                            resetBalls();
                         }
-
                     });
                     builder.show();
                 }
@@ -103,17 +98,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 updateBallCount();
                 if (ball_count == 4) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    //builder.setTitle("Dialog box");
+                    builder.setTitle("Too many balls");
                     builder.setMessage("Batter walks.");
                     builder.setCancelable(false);
                     builder.setPositiveButton("Okay.", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            strike_count = 0;
-                            ball_count = 0;
-                            // Note, you have to call update count here because.
-                            //   the call builder.show() below is non blocking.
-                            updateStrikeCount();
-                            updateBallCount();
+                            resetBalls();
 
                         }
                     });
@@ -124,6 +114,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         }
     }
 
+    public void resetBalls() {
+        strike_count = 0;
+        ball_count = 0;
+        updateStrikeCount();
+        updateBallCount();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -132,10 +129,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 viewAbout();
                 return true;
             case R.id.action_reset:
-                strike_count=0;
-                ball_count=0;
-                updateStrikeCount();
-                updateBallCount();
+                resetBalls();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -147,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         startActivity(intent);
     }
 
-    public void addOuts(){
+    public void addOuts() {
         //Saving the outs in the shared pref folder.
         out_count++;
         SharedPreferences prefs = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
@@ -157,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         updateOutCount();
     }
 
-    public void readOuts(){
+    public void readOuts() {
         SharedPreferences prefs = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
         out_count = prefs.getInt("totalOuts", 0); //0 is the default value
     }
